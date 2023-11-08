@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>Hi {{data.userName}}</h1>
+<div mat-dialog-content >
+
+    <h2>Two-Factor Authentication code:</h2>
+    <p>{{data.response.userSecret}}</p>
+    <h2>Two-Factor Authentication name:</h2>
+    <p>{{data.response.userName}}</p>
+    <div >
+        <div >
+            <h1>
+                Two-Factor Authentication (2FA) Setup
+            </h1>
+            <p>
+                We take security seriously! To enhance the security of your account,
+                we require you to set up Two-Factor Authentication (2FA).
+            </p>
+            <p>
+                2FA adds an extra layer of protection to your account by requiring
+                you to enter a unique verification code, in addition to your
+                password, each time you sign in.
+            </p>
+            <p>
+                To get started, you will need to install the Google Authenticator
+                app on your mobile device. Google Authenticator generates the
+                verification codes for your account.
+            </p>
+            <div>
+                <div>
+                    <h2>
+                        How to set up 2FA using Google Authenticator:
+                    </h2>
+                    <ol>
+                        <li>
+                            Open the Google Authenticator app on your mobile device.
+                        </li>
+                        <li>
+                            Scan the QR code displayed on the screen with the app.
+                        </li>
+                        <li>
+                            Once scanned, Google Authenticator will generate a 6-digit
+                            verification code.
+                        </li>
+                        <li>
+                            Enter the verification code in the box below to complete the
+                            setup.
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">ok</button>
+
+</div>

@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Warnes&display=swap');
+
+.game-mode-selection {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  background-image: url('../../assets/ezgif.com-gif-maker.gif');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.classic-game-header, .custom-game-header {
+  position: absolute;
+  text-align: center;
+  font-family: 'Warnes', cursive;
+  top: 10%;
+  height: 10%;
+  width: 100%;
+  color: #e5ff00;
+  text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px rgb(228, 253, 0),
+      0 0 82px rgb(228, 253, 0),
+      0 0 92px rgb(228, 253, 0),
+      0 0 102px rgb(228, 253, 0),
+      0 0 151px rgb(228, 253, 0);
+    font-weight: 400;
+    font-size: 5vw;
+}
+.classic-game, .custom-game {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.classic-game {
+  left: 0;
+}
+
+.custom-game {
+  right: 0;
+}
+.custom-game:hover, .classic-game:hover {
+  background-color: rgba(255, 238, 0, 0.205);
+}

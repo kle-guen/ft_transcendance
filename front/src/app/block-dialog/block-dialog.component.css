@@ -1,0 +1,37 @@
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    display: flex;
+}
+
+a {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.buttonBlock {
+    margin-left: auto;
+    margin-right: 40px;
+    margin-top: 20px;
+    background-color: whitesmoke;
+    border-color: gainsboro;
+    border-style: solid;
+    border-width: 3px;
+    text-align: center;
+    cursor: pointer;
+  }

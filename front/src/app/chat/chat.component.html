@@ -1,0 +1,242 @@
+<div class="chat-container">
+  <mat-drawer-container class="chat-messages" id="scrollDown">
+    <mat-drawer #roomsdrawer class="example-sidenav" opened="true" mode="side" position="start" id="scrollDown">
+      <div class="rooms_input">
+        <div class="sidebar">
+          <h3>Rooms</h3>
+          <ul>
+            <li *ngFor="let room of rooms" (click)="selectRoom(room)"
+              [ngClass]="{ 'active-room': room === selectedRoom }">
+              <ng-container *ngIf="!room.duoChannel">
+                {{ room.channelName }}
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+
+                  <div *ngIf="room.password === ''">
+                    <button mat-menu-item (click)="openDialogSetPassword(room)">
+                      <mat-icon class="icon-display">lock_close</mat-icon>
+                      <span>Set Password</span>
+                    </button>
+                  </div>
+
+                  <button mat-menu-item (click)="openDialogInviteUser(room)">
+                    <mat-icon class="icon-display">add</mat-icon>
+                    <span>Invite</span>
+                  </button>
+
+                  <div *ngIf="room.password !== ''">
+                    <button mat-menu-item (click)="deletePassword(room)">
+                      <mat-icon class="icon-display">lock_open</mat-icon>
+                      <span>Delete Password</span>
+                    </button>
+                  </div>
+
+                  <button mat-menu-item (click)="deleteRoom(room)">
+                    <mat-icon class="icon-display">delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+
+                  <div *ngIf="room.invitation === true">
+                    <button mat-menu-item (click)="setPublic(room)">
+                      <mat-icon>visibility_on</mat-icon>
+                      <span>Set Public</span>
+                    </button>
+                  </div>
+
+                  <div *ngIf="room.invitation === false">
+                    <button mat-menu-item (click)="setPrivate(room)">
+                      <mat-icon>visibility_off</mat-icon>
+                      <span>Set Private</span>
+                    </button>
+                  </div>
+
+                </mat-menu>
+              </ng-container>
+            </li>
+          </ul>
+          <h3>Private messages</h3>
+          <ul>
+            <li *ngFor="let room of privateRooms" (click)="selectRoom(room)"
+              [ngClass]="{ 'active-room': room === selectedRoom }">
+              <ng-container *ngIf="room.duoChannel === true">
+                <ng-container *ngIf="room.users[0].userName !== this.username">
+                  {{ room.users[0].userName }}
+                </ng-container>
+                <ng-container *ngIf="room.users[0].userName === this.username">
+                  {{ room.users[1].userName }}
+                </ng-container>
+              </ng-container>
+            </li>
+          </ul>
+        </div>
+        <div class="input-container">
+          <ol>
+            <button mat-raised-button (click)="openDialogCreateRoom()">createRoom</button>
+          </ol>
+          <ol>
+            <button mat-raised-button (click)="openDialogJoinRoom()">joinRoom</button>
+          </ol>
+        </div>
+      </div>
+    </mat-drawer>
+
+    <mat-drawer #Users class="example-sidenav" mode="over" position="end">
+      <div class="rooms_input">
+        <div class="sidebar">
+          <h3>user List</h3>
+          <div *ngIf="selectedRoom !== undefined">
+            <div *ngFor="let users of selectedRoom.users">
+              <p>
+                {{ users.userName }}
+                <ng-container *ngIf="users.userId !== this.userId">
+                  <ng-container *ngIf="users.status === 1">
+                    <div matBadge="&#8288;" aria-hidden="true" matBadgeOverlap="true" matBadgePosition="before"
+                      matBadgeSize="small" class="demo-section"></div>
+                  </ng-container>
+                  <ng-container *ngIf="users.status === 0">
+                    <div matBadge="&#8288;" aria-hidden="true" matBadgeColor="warn" matBadgeOverlap="true" matBadgePosition="before"
+                      matBadgeSize="small" class="demo-section"></div>
+                  </ng-container>
+                  <ng-container *ngIf="selectedRoom.duoChannel === false">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="muteUser(selectedRoom.channelName,users.userId)">
+                        <mat-icon>volume_off</mat-icon>
+                        <span>Mute</span>
+                      </button>
+                      <button mat-menu-item (click)="setAdministrator(selectedRoom.channelName,users.userId)">
+                        <mat-icon>group_add</mat-icon>
+                        <span>Set Admin</span>
+                      </button>
+                      <button mat-menu-item (click)="banUser(selectedRoom.channelName,users.userId)">
+                        <mat-icon>gavel</mat-icon>
+                        <span>Ban User</span>
+                      </button>
+                      <button mat-menu-item (click)="kickUser(selectedRoom.channelName,users.userId)">
+                        <mat-icon>clear</mat-icon>
+                        <span>Kick User</span>
+                      </button>
+                      <button mat-menu-item (click)="privateChannel(users.userId)">
+                        <mat-icon>chat</mat-icon>
+                        <span>Private Message</span>
+                      </button>
+
+                      <button mat-menu-item (click)="userProfile(users.userName)">
+                        <mat-icon>person</mat-icon>
+                        <span>Profile</span>
+                      </button>
+
+
+                      <ng-container *ngIf="!isUserBlacklisted(users.userName)">
+                        <button mat-menu-item (click)="BlacklistOn(selectedRoom.channelName,users.userId)">
+                          <mat-icon>volume_off</mat-icon>
+                          <span>Block User</span>
+                        </button>
+                      </ng-container>
+
+                      <ng-container *ngIf="isUserBlacklisted(users.userName)">
+                        <button mat-menu-item (click)="BlacklistOff(selectedRoom.channelName,users.userId)">
+                          <mat-icon>volume_up</mat-icon>
+                          <span>Unblock User</span>
+                        </button>
+                      </ng-container>
+
+
+                    </mat-menu>
+                  </ng-container>
+                  <ng-container *ngIf="selectedRoom.duoChannel === true">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="playPong(selectedRoom.id,users.userId)">
+                        <mat-icon>play_circle_outline</mat-icon>
+                        <span>Play</span>
+                      </button>
+                      <ng-container *ngIf="!isUserBlacklisted(users.userName)">
+                        <button mat-menu-item (click)="BlacklistOn(selectedRoom.channelName,users.userId)">
+                          <mat-icon>volume_off</mat-icon>
+                          <span>Block User</span>
+                        </button>
+                      </ng-container>
+
+                      <ng-container *ngIf="isUserBlacklisted(users.userName)">
+                        <button mat-menu-item (click)="BlacklistOff(selectedRoom.channelName,users.userId)">
+                          <mat-icon>volume_up</mat-icon>
+                          <span>Unblock User</span>
+                        </button>
+                      </ng-container>
+
+                    </mat-menu>
+                  </ng-container>
+                  <ng-container *ngFor="let admin of selectedRoom.userAdmins">
+                    <mat-icon class="starborder" *ngIf="admin === users.userId">star_border</mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="selectedRoom.owner === users.userId">
+                    <mat-icon class="starborder">stars</mat-icon>
+                  </ng-container>
+                  <ng-container *ngFor="let mute of selectedRoom.userMuted">
+                    <mat-icon class="starborder" *ngIf="mute === users.userId">volume_off</mat-icon>
+                  </ng-container>
+                </ng-container>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer>
+
+    <div class="example-sidenav-content" id="left-button">
+      <button type="button" mat-button (click)="roomsdrawer.toggle()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+
+    <div class="example-sidenav-content" id="right-button">
+      <button type="button" mat-button (click)="Users.toggle()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="selectedRoom" class="messages" id="scrollDown">
+      <div *ngFor="let message of messages">
+        <ng-container *ngIf="!isUserBlacklisted(message.userName) && message.channelId === this.selectedRoom.id">
+          <div class="message-content">
+            <div class="message-header">
+              <span class="message-username">{{ message.userName }}</span>
+              <span class="message-date"> {{ message.createdAt | date:'short' }}</span>
+            </div>
+            <div class="message-text">
+              {{ message.message }}
+            </div>
+            <ng-container *ngIf="message.invitation === true && message.userId !== this.userId">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="playPongAccept(selectedRoom.id, message.userId, message)">
+                  <mat-icon>check</mat-icon>
+                  <span>Accept</span>
+                </button>
+                <button mat-menu-item (click)="playPongDenie(selectedRoom.id, message.userId, message)">
+                  <mat-icon>close</mat-icon>
+                  <span>Deny</span>
+                </button>
+              </mat-menu>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+  </mat-drawer-container>
+</div>
+
+<div class="sendMessageButton">
+  <button (click)="sendMessage()">Send Message</button>
+  <input type="text" (keyup.enter)="sendMessage()" [(ngModel)]="message" placeholder="Type your message"
+    (input)="onMessageChange($event)" />
+</div>

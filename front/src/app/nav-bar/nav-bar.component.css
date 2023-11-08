@@ -1,0 +1,42 @@
+.spacer{
+  flex: 1 1 auto;
+}
+.material-symbols-outlined {
+font-variation-settings:
+'FILL' 0,
+'wght' 400,
+'GRAD' 0,
+'opsz' 48
+}
+
+.material-symbols-outlined {
+font-variation-settings:
+'FILL' 0,
+'wght' 400,
+'GRAD' 0,
+'opsz' 48
+}
+
+.container {
+text-align: right;
+margin-left: auto
+}
+
+.button {
+padding: 10px 20px;
+color: white;
+border-width: 0px;
+background-color: DarkCyan;
+cursor: pointer;
+font-size: 16px;
+}
+
+.button:hover {
+background-color: transparent;
+color: DarkCyan;
+border: 2px solid DarkCyan;
+}
+
+.name {
+  margin-left: 20px;
+}

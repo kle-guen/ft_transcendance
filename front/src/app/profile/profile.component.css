@@ -1,0 +1,274 @@
+.global {
+  display: absolute;
+  min-height: 720px;
+  min-width: 1280px;
+}
+
+.user {
+  margin: 40px;
+  top: 200px;
+  display: flex;
+  min-height: 1080px;
+  flex-direction: column;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+}
+
+.avatar {
+  border-color: black;
+  background-color: black;
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 50%;
+  width: 192px;
+  height: 192px;
+  overflow: hidden;
+}
+
+.name {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: black;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.name a {
+  cursor: pointer;
+}
+
+.tab {
+  margin-left: 300px;
+  position: relative;
+}
+
+.tabFriend {
+  max-height: 85vh;
+  overflow-y: scroll;
+  bottom: 0%;
+}
+
+.friend,
+.historyWin,
+.historyLose {
+  position: relative;
+  height: 158px;
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.friend {
+  background-color: whitesmoke;
+  border: 3px solid gainsboro;
+}
+
+.historyWin {
+  background-color: #e7f0fc;
+  border: 3px solid #5d9ceb;
+}
+
+.historyLose {
+  background-color: #fbecea;
+  border: 3px solid #e37e74;
+}
+
+.friendAvatar,
+.historyAvatar {
+  border-color: black;
+  background-color: black;
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 50%;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+}
+
+.friendAvatar {
+  margin: 10px 20px;
+  cursor: pointer;
+}
+
+.avatar img,
+.friendAvatar img,
+.historyAvatar img {
+  width: 100%;
+  height: unset;
+  display: block;
+  -webkit-user-drag: none;
+}
+
+.avatar img {
+  cursor: pointer;
+}
+
+.friend a,
+.historyWin a,
+.historyLose a,
+.stat a {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: black;
+  cursor: default;
+}
+
+.friend a {
+  margin-left: 40px;
+}
+
+.friendUtils {
+  display: flex;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.friendUtils button {
+  background-color: gainsboro;
+  border-color: lightgrey;
+  border-style: solid;
+  border-width: 3px;
+  text-align: center;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.friendUtils svg {
+  fill: #505050;
+  scale: 2.5;
+}
+
+.friendStatusOnline,
+.friendStatusOffline,
+.friendStatusIngame {
+  position: absolute;
+  bottom: 25px;
+  left: 125px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border-color: black;
+  border-style: solid;
+  border-width: 3px;
+}
+
+.friendStatusOnline {
+  background-color: lightgreen;
+}
+
+.friendStatusOffline {
+  background-color: red;
+}
+
+.friendStatusIngame {
+  background-color: cadetblue;
+}
+
+.search {
+  margin-bottom: 60px;
+}
+
+.search label {
+  cursor: pointer;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  border-color: black;
+  border-style: solid;
+  border-width: 2px;
+  padding: 0px 5px;
+}
+
+#friendInput {
+  display: none;
+}
+
+#friendButton:checked + #friendInput {
+  margin-top: 10px;
+  display: block;
+}
+
+.checkboxButton {
+  display: none;
+}
+
+.searchInput input {
+  width: 100px;
+  outline: none;
+  font-weight: 400;
+}
+
+.searchInput button {
+  font-weight: 500;
+  border-left: none;
+  cursor: pointer;
+}
+
+.searchInput input,
+.searchInput button {
+  scale: 1.3;
+  background-color: whitesmoke;
+  color: black;
+  border-width: 1px;
+  border-style: solid;
+  border-color: gainsboro;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
+
+.tabHistory {
+  max-height: 85vh;
+  overflow-y: scroll;
+  bottom: 0%;
+}
+
+.historyAvatarLeft {
+  margin-left: 40px;
+}
+
+.historyAvatarRight {
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.historyNameLeft {
+  margin-left: 20px;
+}
+
+.historyNameRight {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.result {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+}
+
+.stat {
+  margin-bottom: 20px;
+}
+
+.block {
+  margin-top: 20px;
+}
+
+.stat button,
+.block button {
+  background-color: whitesmoke;
+  border-color: gainsboro;
+  border-style: solid;
+  border-width: 3px;
+  text-align: center;
+  margin: 10px;
+  cursor: pointer;
+}

@@ -1,0 +1,8 @@
+<h2>Block list</h2>
+<div class="center">
+    <div class="tab" *ngFor="let block of list">
+        <a class="achiev">{{ block.name }}</a>
+        <button (click)="onClick(block.id)"class="buttonBlock">Unblock</button>
+    </div>
+    <button (click)="onClose()" mat-raised-button color="primary">Close</button>
+</div>

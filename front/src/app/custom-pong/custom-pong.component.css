@@ -1,0 +1,168 @@
+.pong {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: white;
+}
+
+.game-area {
+  display : flex;
+  background-color: black;
+  position: relative;
+  width: 80%;
+  max-width: 1600px;
+  max-height: 900px;
+  min-width: 500px;
+  min-height: 300px;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgb(42, 42, 230);
+}
+
+.paddleleft {
+  position: absolute;
+  left: 2.5%;
+  top: 42%;
+  width: 1%;
+  height: 16%;
+  background-color: #fff;
+}
+
+.middlepaddleleft {
+  position: absolute;
+  right: 25%;
+  top: 42%;
+  width: 1%;
+  height: 16%;
+  background-color: #fff;
+}
+
+.paddleright {
+  position: absolute;
+  top: 42%;
+  right: 2.5%;
+  width: 1%;
+  height: 16%;
+  background-color: #fff;
+}
+
+.middlepaddleright {
+  position: absolute;
+  top: 42%;
+  left: 25%;
+  width: 1%;
+  height: 16%;
+  background-color: #fff;
+}
+
+.ball {
+  position: absolute;
+  top: 48%;
+  left: 48.75%;
+  width: 1.3vw;
+  height: 1.3vw;
+  background-color: #fff;
+}
+
+.dashed-line {
+  position: absolute;
+  left: 49.75%;
+  height: 100%;
+  width: 0;
+  border: 2px white;
+  border-style: dashed;
+  transform: translateX(-50%);
+}
+
+.score-line {
+  position: relative;
+  top: 3%;
+  left: 0%;
+  width: 100%;
+  justify-content: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 3vw;
+  color: white;
+}
+
+.game-state-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  border: 1vw solid rgb(3, 3, 88);
+  min-height: 150px;
+  aspect-ratio: 16 / 9;
+  background-color:rgb(127, 187, 255);
+}
+
+.game-state {
+  font-size: 2.5vw;
+  margin-bottom: 10%;
+  white-space: nowrap;
+  width: 50%;
+  text-align: center;
+}
+
+.vs {
+  font-size: 2.5vw;
+  margin-bottom: 10%;
+  white-space: nowrap;
+  width: 20%;
+  text-align: center;
+}
+
+.profiles {
+  display: flex;
+  align-items: center;
+  width : 100%;
+  left : 0;
+}
+
+.profile {
+  text-align: center;
+  align-items: center;
+  width : 40%;
+}
+
+.profile img {
+  width: 8vw;
+  height: 8vw;
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 2vw;
+  margin-top: 5%;
+}
+
+.profile img.loading {
+  border: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2vw;
+}
+
+.home-button,
+.replay-button {
+  width: 10vw;
+  aspect-ratio: 16 / 9;
+  font-size: 1.5vw;
+  padding: 1vw;
+}

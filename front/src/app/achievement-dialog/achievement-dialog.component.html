@@ -1,0 +1,13 @@
+<h2>Achievements</h2>
+<div class="center">
+    <div *ngIf="i == 0">
+        <a class="achiev">You don't have any Achievement.</a>
+    </div>
+    <div *ngIf="i > 0">
+        <div class="tab" *ngFor="let achiev of achievement">
+            <a class="achiev">{{ achiev.name }}</a>
+            <a class="desc">{{ achiev.description }}</a>
+        </div>
+    </div>
+    <button (click)="onClose()" mat-raised-button color="primary">Close</button>
+</div>

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+
+
+    <mat-form-field>
+        <mat-label>Create Channel</mat-label>
+        <input matInput [(ngModel)]="data.channelName">
+    </mat-form-field>
+</div>
+<div mat-dialog-content>
+
+    <p>Password</p>
+    <mat-form-field>
+        <mat-label></mat-label>
+        <input matInput [(ngModel)]="data.password">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <section class="example-full-width" [formGroup]="toppings">
+        <p><mat-checkbox formControlName="invitation">Private</mat-checkbox></p>
+    </section>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button> -->
+    <button mat-button (click)="onOkClick()">Ok</button>
+
+</div>

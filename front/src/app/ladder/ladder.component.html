@@ -1,0 +1,13 @@
+<div class="ladder">
+    <div *ngFor="let player of players">
+        <div class="players">
+            <div class="avatar">
+                <img [src]="player.avatar" alt="avatar" (click)="onClickAvatarLook(player.name)"/>
+                <div class="statusOffline" *ngIf="player.status == 0"></div>
+                <div class="statusOnline" *ngIf="player.status == 1"></div>
+                <div class="statusIngame" *ngIf="player.status == 2"></div>
+            </div>
+        <a class="name">{{ player.name }}</a>
+        <a class="elo">{{ player.elo }}</a>
+    </div>
+</div>

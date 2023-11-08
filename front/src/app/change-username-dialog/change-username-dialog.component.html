@@ -1,0 +1,7 @@
+<h2>Change Username</h2>
+<form class="center">
+    <mat-form-field>
+        <input matInput type="text" placeholder="New Username" [(ngModel)]="newUsername" (input)="onChange($event)" [ngModelOptions]="{standalone: true}"/>
+    </mat-form-field>
+    <button (click)="onSubmit()" mat-raised-button color="primary" type="submit">Save</button>
+</form>

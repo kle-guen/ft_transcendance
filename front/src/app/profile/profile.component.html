@@ -1,0 +1,125 @@
+<div class="global">
+  <div class="user">
+    <div class="search" *ngIf="!lookingProfile">
+      <label for="friendButton" id="labelButton">Add Friend</label>
+      <input class="checkboxButton" type="checkbox" id="friendButton" />
+      <div class="searchInput" id="friendInput">
+        <input type="text" id="friend" placeholder="Username" />
+        <button (click)="onClickFriendAdd()">Send</button>
+      </div>
+    </div>
+    <div class="stat">
+      <a>Win(s): {{ win }}</a>
+      <br>
+      <a>Lose(s): {{ lose }}</a>
+      <br>
+      <a>Winrate: {{ winrate }}%</a>
+      <br>
+      <a>Elo: {{ elo }}</a>
+      <br>
+      <button (click)="onClickAchievement()">Achievements</button>
+    </div>
+    <div class="avatar">
+      <img id="avatarElement" (click)="onClickAvatar()" alt="avatar" />
+    </div>
+    <div class="name">
+      <a (click)="onClickName()">{{ username }}</a>
+    </div>
+    <mat-slide-toggle [(ngModel)]="isChecked" (click)="twoFAButton()" *ngIf="!lookingProfile"> Activate 2fa
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item >
+          <mat-icon>close</mat-icon>
+          <span>Denie</span>
+        </button>
+      </mat-menu>
+    </mat-slide-toggle>
+    <div class="block">
+      <button (click)="onClickBlockDialog()">Unblock</button>
+    </div>
+  </div>
+  <div class="tab">
+    <mat-tab-group animationDuration="100ms">
+      <mat-tab label="History">
+        <div class="tabHistory">
+          <div *ngFor="let game of games">
+            <div class="historyWin" *ngIf="game.score > game.opponentScore">
+              <div class="historyAvatar historyAvatarLeft">
+                <img [src]="game.avatar" alt="avatar"/>
+              </div>
+              <a class="historyNameLeft">{{ game.name }}</a>
+              <div class="result">
+                <a>Victory</a>
+                <a>{{ game.score }} - {{ game.opponentScore }}</a>
+                <br>
+                <a>{{ game.gameType }}</a>
+              </div>
+              <a class="historyNameRight">{{ game.opponent }}</a>
+              <div class="historyAvatar historyAvatarRight">
+                <img [src]="game.opponentAvatar" alt="avatar" (click)="onClickAvatarLook(game.opponent)"/>
+              </div>
+            </div>
+            <div class="historyLose" *ngIf="game.score < game.opponentScore">
+              <div class="historyAvatar historyAvatarLeft">
+                <img [src]="game.avatar" alt="avatar"/>
+              </div>
+              <a class="historyNameLeft">{{ game.name }}</a>
+              <div class="result">
+                <a>Lose</a>
+                <a>{{ game.score }} - {{ game.opponentScore }}</a>
+                <br>
+                <a>{{ game.gameType }}</a>
+              </div>
+              <a class="historyNameRight">{{ game.opponent }}</a>
+              <div class="historyAvatar historyAvatarRight">
+                <img [src]="game.opponentAvatar" alt="avatar" (click)="onClickAvatarLook(game.opponent)"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Friends">
+        <div class="tabFriend">
+          <div class="friend" *ngFor="let personne of friends">
+            <div class="friendAvatar">
+              <img [src]="personne.avatar" alt="avatar" (click)="onClickAvatarLook(personne.name)"/>
+              <div class="friendStatusOffline" *ngIf="personne.status == 0"></div>
+              <div class="friendStatusOnline" *ngIf="personne.status == 1"></div>
+              <div class="friendStatusIngame" *ngIf="personne.status == 2"></div>
+            </div>
+            <a>{{ personne.name }}</a>
+            <div class="friendUtils" *ngIf="personne.type == 0 && !lookingProfile">
+              <button title="Message" (click)="onClickMessage(personne.userId)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+              </button>
+              <button title="Delete" (click)="onClickDeleteFriend(personne.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+              </button>
+              <button title="Block" (click)="onClickBlock(personne.id, personne.userId)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M40.1 467.1l-11.2 9c-3.2 2.5-7.1 3.9-11.1 3.9C8 480 0 472 0 462.2V192C0 86 86 0 192 0S384 86 384 192V462.2c0 9.8-8 17.8-17.8 17.8c-4 0-7.9-1.4-11.1-3.9l-11.2-9c-13.4-10.7-32.8-9-44.1 3.9L269.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6l-26.6-30.5c-12.7-14.6-35.4-14.6-48.2 0L141.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6L84.2 471c-11.3-12.9-30.7-14.6-44.1-3.9zM160 192a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+              </button>
+            </div>
+            <div class="friendUtils" *ngIf="personne.type == 1 && !lookingProfile">
+              <button title="Cancel" (click)="onClickDeleteFriend(personne.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+              </button>
+              <button title="Block" (click)="onClickBlock(personne.id, personne.userId)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M40.1 467.1l-11.2 9c-3.2 2.5-7.1 3.9-11.1 3.9C8 480 0 472 0 462.2V192C0 86 86 0 192 0S384 86 384 192V462.2c0 9.8-8 17.8-17.8 17.8c-4 0-7.9-1.4-11.1-3.9l-11.2-9c-13.4-10.7-32.8-9-44.1 3.9L269.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6l-26.6-30.5c-12.7-14.6-35.4-14.6-48.2 0L141.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6L84.2 471c-11.3-12.9-30.7-14.6-44.1-3.9zM160 192a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+              </button>
+            </div>
+            <div class="friendUtils" *ngIf="personne.type == 2 && !lookingProfile">
+              <button title="Accept" (click)="onClickAcceptFriend(personne.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+              </button>
+              <button title="Refuse" (click)="onClickDeleteFriend(personne.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+              </button>
+              <button title="Block" (click)="onClickBlock(personne.id, personne.userId)">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M40.1 467.1l-11.2 9c-3.2 2.5-7.1 3.9-11.1 3.9C8 480 0 472 0 462.2V192C0 86 86 0 192 0S384 86 384 192V462.2c0 9.8-8 17.8-17.8 17.8c-4 0-7.9-1.4-11.1-3.9l-11.2-9c-13.4-10.7-32.8-9-44.1 3.9L269.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6l-26.6-30.5c-12.7-14.6-35.4-14.6-48.2 0L141.3 506c-3.3 3.8-8.2 6-13.3 6s-9.9-2.2-13.3-6L84.2 471c-11.3-12.9-30.7-14.6-44.1-3.9zM160 192a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm96 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.login-container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+img {
+    width: 10vw;
+}
+
+span {
+    font-size: 2.5vw;
+    margin-bottom: 1vw;
+}
+
+.button {
+    position: relative;
+    padding: 10px 20px;
+    color: white;
+    border-width: 0px;
+    background-color: DarkCyan;
+    cursor: pointer;
+    font-size: 2.5vw;
+}
+
+.button:hover {
+    background-color: transparent;
+    color: DarkCyan;
+    border: 2px solid DarkCyan;
+}

@@ -1,0 +1,30 @@
+<!-- app.component.html -->
+<mat-toolbar color="primary">
+    <span class="material-symbols-outlined">scoreboard</span>
+    <a mat-button routerLink="/pong">PONG</a>
+
+    <div class="spacer"></div>
+    <a mat-button routerLink="/chat">Chat</a>
+    <a mat-button (click)="onClickWithRefresh()">Profile</a>
+    <a mat-button routerLink="/ladder">Ladder</a>
+    <a mat-button routerLink="/">Home</a>
+    <a class="name">{{userName}}</a>
+    <!-- <a mat-raised-button color="accent">Sign Up</a> -->
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Help</button>
+    </mat-menu>
+    <!-- <div class="container" *ngIf="!dataService.connect"> -->
+        <!-- <button class="button" (click)="dataService.clickConnect()">Connect</button> -->
+    <!-- </div> -->
+    <!-- <div class="container" *ngIf="dataService.connect"> -->
+        <!-- <a>{{ dataService.name }}</a> -->
+    <!-- </div> -->
+</mat-toolbar>
+
+<!-- <button mat-icon-button [matMenuTriggerFor]="appMenu">
+    <mat-icon>more_vert</mat-icon>
+</button> -->
+
+<!-- Router outlet to display routed components -->
+<!-- <router-outlet></router-outlet> -->

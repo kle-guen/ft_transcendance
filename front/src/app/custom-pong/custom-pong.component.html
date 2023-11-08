@@ -1,0 +1,44 @@
+<div class="pong">
+  <div class="game-area" *ngIf="gameStatus === 1">
+    <div class="dashed-line"></div>
+    <pre><span class="score-line">{{scoreP1}}      {{scoreP2}}</span></pre>
+    <div class="paddleright" [style.top.%]="paddleRightTop"></div>
+    <div class="middlepaddleright" [style.top.%]="paddleRightTop"></div>
+    <div class="paddleleft" [style.top.%]="paddleLeftTop"></div>
+    <div class="middlepaddleleft" [style.top.%]="paddleLeftTop"></div>
+    <div class="ball" [style.left.%]="ballLeft" [style.top.%]="ballTop"></div>
+  </div>
+  <div class="game-state-container" *ngIf="gameStatus === 0">
+    <div class="game-state">Looking for game...</div>
+    <div class="profiles">
+      <div class="profile">
+        <img [src]="avatarP1" alt="User 1">
+        <div class="name">{{nameP1}}</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="profile">
+        <img [src]="avatarP2" alt="User 2"  [class.loading]="isLoadingP2">
+        <div class="name">{{nameP2}}</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="game-state-container" *ngIf="gameStatus === 4">
+    <div class="game-state">Result</div>
+    <div class="profiles">  
+      <div class="profile">
+        <img [src]="avatarP1" alt="User 1">
+        <div class="name">{{nameP1}}</div>
+      </div>
+      <div class="vs">{{scoreP1}} - {{scoreP2}}</div>
+      <div class="profile">
+        <img [src]="avatarP2" alt="User 2">
+        <div class="name">{{nameP2}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="buttons-container" *ngIf="gameStatus === 4">
+    <button class="home-button" (click)="redirectHome()">Home</button>
+    <button class="replay-button" (click)="redirectGameSelector()">New game</button>
+  </div>
+<div>

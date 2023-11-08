@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Public Channels</mat-label>
+    <input type="text" placeholder="Pick one" aria-label="Number" matInput [(ngModel)]="data.joinedchannelName"
+      [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+</div>
+
+<div mat-dialog-content>
+  <p>Password</p>
+  <mat-form-field>
+    <mat-label></mat-label>
+    <input matInput [(ngModel)]="data.password">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
